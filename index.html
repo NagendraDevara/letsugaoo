@@ -18,24 +18,29 @@
 
 <script type="text/javascript">
 var vt;
-
+// const data = [{ id: 'root', children: [{ id: '1' }, { id: '3', children: [{ id: '4' }] }] }];
+const data =[];
+let successFulCompletion = false;
+const addDataToId = async (arr, id, children) => {
+  
+    await arr.forEach(i => {
+        if (i.id == id) {
+            i.children = [...(i.children || []), ...children];
+            successFulCompletion = true;
+        } else {
+            
+            addDataToId(i.children || [], id, children)
+        }
+    })
+}
+var s = '';
 window.onload = function () {
-  var container = document.getElementById("container");
-  var msg = document.getElementById("msg");
-  vt = new VTree(container);
-  var reader = new VTree.reader.Object();
-
-  function updateTree() {
-    var s = '';
-
-    msg.innerHTML = '';
-   
-    s = [
+  s = [
     {
         "label": "sriharsha",
         "children": [
             {
-                "label": "Nikitha"
+                "label": "Nikita"
             },
             {
                 "label": "ram",
@@ -61,6 +66,38 @@ window.onload = function () {
      
 ]
 
+  document.getElementById('btnSubmit').addEventListener('click', () => {
+    successFulCompletion = false;
+    let owner = document.getElementById('fname').value;
+    let child1 = document.getElementById('lname').value;
+    let child2 = document.getElementById('rname').value;
+    let child3 = document.getElementById('dname').value;
+
+    let pushData = [{ id: owner, children: [{ id: child1, children: [] }, { id: child2, children: [] },{ id: child3, children: [] }] }]
+    console.log(pushData[0].children)
+    addDataToId(data, owner, pushData[0].children).then(e => {
+        console.log(e)
+        console.log(successFulCompletion);
+        if (successFulCompletion == false) {
+            data.push(pushData[0])
+        }
+        console.log(data);
+        s =data;
+        updateTree() 
+    });
+});
+
+  var container = document.getElementById("container");
+  var msg = document.getElementById("msg");
+  vt = new VTree(container);
+  var reader = new VTree.reader.Object();
+
+  function updateTree() {
+  
+
+    msg.innerHTML = '';
+   
+ 
 s = JSON.stringify(s)
 console.log(s)
     try {
@@ -90,6 +127,19 @@ console.log(s)
 </head>
 
 <body>
+  <form id="earthForm">
+    <label for="fname">Challenge Initiator</label><br>
+    <input type="text" id="fname" name="fname" ><br>
+    <label for="lname">Challenge Receiver</label><br>
+    <input type="text" id="lname" name="lname" ><br><br>
+    <input type="text" id="rname" name="rname" ><br><br>
+    <input type="text" id="dname" name="dname" ><br><br>
+    <input type="button" id="btnSubmit"   value="Submit">
+  
+  
+   
+  <pre id="link"></pre>
+  </form> 
   <div class="container">
 
     <!-- <h1>Online JSON to Tree Diagram Converter</h1> -->
