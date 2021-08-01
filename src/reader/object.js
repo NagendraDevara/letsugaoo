@@ -27,10 +27,12 @@ function obj2node(obj, linkName) {
     obj.forEach((item, i) => {
       if (Array.isArray(item)) {
         node = new DummyNode(obj2node(item, ''));
-        node.decorators.push(new LinkNameDecorator(`${linkName}[${i}]`));
+        // ${linkName}
+        node.decorators.push(new LinkNameDecorator(`[${i}]`));
         nodes.push(node);
       } else {
-        node = obj2node(item, `${linkName}[${i}]`);
+        // ${linkName}
+        node = obj2node(item, `[${i}]`);
         nodes.push(node);
       }
     });

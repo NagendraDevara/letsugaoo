@@ -10,6 +10,8 @@ export default class StringNode extends Node {
   }
 
   _render(g) {
+    // eslint-disable-next-line no-console
+    // console.log(g)
     const bbox = appendRectText(g, 0, 0, this.data, this.textPad);
 
     this.width = bbox.width;

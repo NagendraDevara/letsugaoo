@@ -30,7 +30,12 @@ export default class TableNode extends Node {
     this.data.forEach((row) => {
       const tblRow = [];
 
-      row.forEach((col) => {
+      row.forEach((col,i) => {
+        // eslint-disable-next-line no-console
+        // console.log(row)
+        if(i==1){
+          
+        
         const colG = g.append('g');
         const bbox = appendRectText(colG, 0, 0, col, this.textPad);
 
@@ -38,6 +43,7 @@ export default class TableNode extends Node {
           g: colG,
           bbox: bbox
         });
+      }
       });
 
       tbl.push(tblRow);

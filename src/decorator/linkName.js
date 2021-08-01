@@ -6,8 +6,10 @@ export default class LinkNameDecorator {
   }
 
   render(g, oldG, width) {
+    // eslint-disable-next-line no-console
+    // console.log(this.linkName);
     const t = g.append('text')
-      .text(this.linkName);
+      .text('');
 
     const b = t.node().getBBox();
     const textW = Math.ceil(b.width);

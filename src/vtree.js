@@ -25,11 +25,12 @@ const style = `
 .vtree-link { fill: none; stroke: #888; stroke-width: 2px; }
 .vtree-table { stroke-width: 2px; stroke: steelblue; }
 path.vtree-table { fill: white; }
-g.vtree-node rect { fill: white; stroke: black; stroke-width: 1px; }
+g.vtree-node rect { fill: white; stroke: black; stroke-width: 0.8px; }
 g.vtree-node rect.number-text { fill: #d8f0ed; }
-g.vtree-node rect.string-text { fill: #e7f0db; }
-g.vtree-node rect.boolean-text { fill: #e1d8f0; }
+g.vtree-node rect.string-text { fill: #00b300; }
+g.vtree-node rect.boolean-text { fill: #ff944d; }
 g.vtree-node rect.null-text { fill: #888; }
+g.vtree-node text { fill: #300c2a; }
 `;
 
 
@@ -167,7 +168,7 @@ class VTree {
 
     this.d3.svg.append('style').text(style);
 
-    this._debugDrawGrid();
+    // this._debugDrawGrid();
 
     this.d3.g = this.d3.svg.selectAll('g.vtree-root')
       .data([root])
@@ -191,7 +192,9 @@ class VTree {
 
     if (this._debug) {
       visitAfter(this.root, (node) => {
-        this._debugDrawNodeInfo(node);
+        // eslint-disable-next-line no-console
+        console.log(node)
+        // this._debugDrawNodeInfo(node);
       });
     }
 
@@ -228,27 +231,27 @@ class VTree {
       .attr('class', 'debug-info');
   }
 
-  _debugDrawGrid() {
-    if (!this._debug) {
-      return;
-    }
+  // _debugDrawGrid() {
+  //   if (!this._debug) {
+  //     return;
+  //   }
 
-    const g = this._debugGetG();
+  //   const g = this._debugGetG();
 
-    g.append('line')
-      .style('stroke', 'red')
-      .attr('x1', this._width / 2)
-      .attr('y1', 0)
-      .attr('x2', this._width / 2)
-      .attr('y2', this._height);
+  //   g.append('line')
+  //     .style('stroke', 'red')
+  //     .attr('x1', this._width / 2)
+  //     .attr('y1', 0)
+  //     .attr('x2', this._width / 2)
+  //     .attr('y2', this._height);
 
-    g.append('line')
-      .style('stroke', 'red')
-      .attr('x1', 0)
-      .attr('y1', this._height / 2)
-      .attr('x2', this._width)
-      .attr('y2', this._height / 2);
-  }
+  //   g.append('line')
+  //     .style('stroke', 'red')
+  //     .attr('x1', 0)
+  //     .attr('y1', this._height / 2)
+  //     .attr('x2', this._width)
+  //     .attr('y2', this._height / 2);
+  // }
 
   _debugDrawNodeInfo(node) {
     if (node.constructor === ArrayNode) {

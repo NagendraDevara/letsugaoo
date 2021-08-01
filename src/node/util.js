@@ -35,7 +35,8 @@ export function appendRectText(g, x, y, text, pad) {
     .attr('x', bbox.x)
     .attr('y', bbox.y)
     .attr('width', bbox.width)
-    .attr('height', bbox.height);
+    .attr('height', bbox.height)
+    .attr('rx',5);
 
   return bbox;
 }

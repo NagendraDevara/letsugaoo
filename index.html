@@ -26,10 +26,43 @@ window.onload = function () {
   var reader = new VTree.reader.Object();
 
   function updateTree() {
-    var s = document.getElementById("from-text").value;
+    var s = '';
 
     msg.innerHTML = '';
+   
+    s = [
+    {
+        "label": "sriharsha",
+        "children": [
+            {
+                "label": "Nikitha"
+            },
+            {
+                "label": "ram",
+                "children": [
+                    {
+                        "label": "4"
+                    }
+                ]
+            },
+             {
+                "label": "rambabu",
+                "children": [
+                    {
+                        "label": "dsfaf"
+                    }
+                ]
+            }
+        ]
+    },{
+      "label": "Nagendra",
+      "children":[]
+    }
+     
+]
 
+s = JSON.stringify(s)
+console.log(s)
     try {
       var jsonData = JSON.parse(s);
     } catch (e) {
@@ -46,8 +79,8 @@ window.onload = function () {
     document.getElementById("svg-text").value = vt.createSvgString();
   }
 
-  document.getElementById("go-button").onclick = updateTree;
-  document.getElementById("svg-button").onclick = createSvgString;
+  // document.getElementById("go-button").onclick = updateTree;
+  // document.getElementById("svg-button").onclick = createSvgString;
 
   updateTree();
 };
@@ -59,18 +92,18 @@ window.onload = function () {
 <body>
   <div class="container">
 
-    <h1>Online JSON to Tree Diagram Converter</h1>
+    <!-- <h1>Online JSON to Tree Diagram Converter</h1> -->
 
-    <p style="text-align: right;"><a href="https://github.com/ivan111/vtree">github</a></p>
+    <!-- <p style="text-align: right;"><a href="https://github.com/ivan111/vtree">github</a></p> -->
 
-    <div style="margin-top: 1em;">
+    <!-- <div style="margin-top: 1em;">
       <label for="from-text">JSON</label><br>
       <textarea id="from-text" rows="6" cols="80">[{ "array": [ 1, 2, [3, 4], 5 ], "boolean": true, "null": null, "number": 123, "object": { "a": "b", "c": "d", "e": "f" }, "string": "Hello World" }, { "|": "|", "  ": { "ʕ": "" }, " ": ["◕", [ { "hello! ": "<ﾆフ" } ], "◕"], "_": { "": "ʔ" } }]</textarea>
     </div>
 
     <div style="margin-top: 1em;">
       <input id="go-button" type="button" value="Visualize">
-    </div>
+    </div> -->
 
     <div id="msg" style="color: red;"></div>
 
