@@ -3,12 +3,14 @@
 <head>
 <meta charset="utf-8">
 
-<title>Online JSON to Tree Diagram Converter</title>
+<title>repair earth initiative</title>
 
 <link rel="stylesheet" href="css/vtree.css" type="text/css"/>
+<script type="text/javascript" src="https://unpkg.com/canvg@3.0.4/lib/umd.js"></script>
 
 <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="dist/vtree.js"></script>
+<script src="./repairEarth.js"></script>
 
 <!-- How to use debug mode.
   1. open browser's developer tools.
@@ -16,131 +18,35 @@
      vt.debug(true).update()
 -->
 
-<script type="text/javascript">
-var vt;
-// const data = [{ id: 'root', children: [{ id: '1' }, { id: '3', children: [{ id: '4' }] }] }];
-const data =[];
-let successFulCompletion = false;
-const addDataToId = async (arr, id, children) => {
-  
-    await arr.forEach(i => {
-        if (i.id == id) {
-            i.children = [...(i.children || []), ...children];
-            successFulCompletion = true;
-        } else {
-            
-            addDataToId(i.children || [], id, children)
-        }
-    })
-}
-var s = '';
-window.onload = function () {
-  s = [
-    {
-        "label": "sriharsha",
-        "children": [
-            {
-                "label": "Nikita"
-            },
-            {
-                "label": "ram",
-                "children": [
-                    {
-                        "label": "4"
-                    }
-                ]
-            },
-             {
-                "label": "rambabu",
-                "children": [
-                    {
-                        "label": "dsfaf"
-                    }
-                ]
-            }
-        ]
-    },{
-      "label": "Nagendra",
-      "children":[]
-    }
-     
-]
 
-  document.getElementById('btnSubmit').addEventListener('click', () => {
-    successFulCompletion = false;
-    let owner = document.getElementById('fname').value;
-    let child1 = document.getElementById('lname').value;
-    let child2 = document.getElementById('rname').value;
-    let child3 = document.getElementById('dname').value;
-
-    let pushData = [{ id: owner, children: [{ id: child1, children: [] }, { id: child2, children: [] },{ id: child3, children: [] }] }]
-    console.log(pushData[0].children)
-    addDataToId(data, owner, pushData[0].children).then(e => {
-        console.log(e)
-        console.log(successFulCompletion);
-        if (successFulCompletion == false) {
-            data.push(pushData[0])
-        }
-        console.log(data);
-        s =data;
-        updateTree() 
-    });
-});
-
-  var container = document.getElementById("container");
-  var msg = document.getElementById("msg");
-  vt = new VTree(container);
-  var reader = new VTree.reader.Object();
-
-  function updateTree() {
-  
-
-    msg.innerHTML = '';
-   
- 
-s = JSON.stringify(s)
-console.log(s)
-    try {
-      var jsonData = JSON.parse(s);
-    } catch (e) {
-      msg.innerHTML = 'JSON parse error: ' + e.message;
-    }
-
-    var data = reader.read(jsonData);
-
-    vt.data(data)
-      .update();
-  }
-
-  function createSvgString() {
-    document.getElementById("svg-text").value = vt.createSvgString();
-  }
-
-  // document.getElementById("go-button").onclick = updateTree;
-  // document.getElementById("svg-button").onclick = createSvgString;
-
-  updateTree();
-};
-
-</script>
 
 </head>
 
 <body>
-  <form id="earthForm">
-    <label for="fname">Challenge Initiator</label><br>
-    <input type="text" id="fname" name="fname" ><br>
-    <label for="lname">Challenge Receiver</label><br>
-    <input type="text" id="lname" name="lname" ><br><br>
-    <input type="text" id="rname" name="rname" ><br><br>
-    <input type="text" id="dname" name="dname" ><br><br>
-    <input type="button" id="btnSubmit"   value="Submit">
-  
-  
-   
-  <pre id="link"></pre>
-  </form> 
-  <div class="container">
+
+ 
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <form id="earthForm">
+      <label for="fname">Challenge Initiator</label><br>
+      <input type="text" id="fname" name="fname" ><br>
+      <label for="lname">Challenge Receiver</label><br>
+      <input type="text" id="lname" name="lname" ><br><br>
+      <input type="text" id="rname" name="rname" ><br><br>
+      <input type="text" id="dname" name="dname" ><br><br>
+      <input type="button" id="btnSubmit"   value="Submit">
+    
+    
+     
+    <pre id="link"></pre>
+    <input type="button" id="generateSvg" value="Generate Svg">
+
+    </form> 
+    <button>svg to png</button>
+
+  </div>
+  <div class="container" id="main">
 
     <!-- <h1>Online JSON to Tree Diagram Converter</h1> -->
 
@@ -159,18 +65,12 @@ console.log(s)
 
     <div id="container"></div>
 
-    <div style="margin-top: 1em;">
-      <input id="svg-button" type="button" value="Get SVG String">
-    </div>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+    
 
-    <div style="margin-top: 1em;">
-      <p>If you want to export the diagram as a svg file, copy the following text into a text editor and save the file with a .svg extension.</p>
-      <textarea id="svg-text" rows="6" cols="80"></textarea>
-    </div>
-
-    <p style="text-align: right;">Created Date: 2014-07-27, Modified Date: 2018-11-01</p>
 
   </div>
+  <canvas id="canvas"></canvas>
 </body>
 
 </html>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import StringNode from '../node/string.js';
 import ArrayNode from '../node/array.js';
 import TableNode from '../node/table.js';
@@ -26,10 +27,10 @@ function obj2node(obj, linkName) {
 
     obj.forEach((item, i) => {
       if (Array.isArray(item)) {
-        node = new DummyNode(obj2node(item, ''));
-        // ${linkName}
-        node.decorators.push(new LinkNameDecorator(`[${i}]`));
-        nodes.push(node);
+        // node = new DummyNode(obj2node(item, ''));
+        // // ${linkName}
+        // node.decorators.push(new LinkNameDecorator(`[${i}]`));
+        // nodes.push(node);
       } else {
         // ${linkName}
         node = obj2node(item, `[${i}]`);

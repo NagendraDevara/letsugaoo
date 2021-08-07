@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Node from './node.js';
 import { appendRectText } from './util.js';
 
@@ -6,7 +7,7 @@ export default class TableNode extends Node {
   constructor(data, children) {
     super(data, children);
 
-    this.textPad = 4;
+    this.textPad = 10;
   }
 
   _render(g) {
@@ -87,8 +88,13 @@ export default class TableNode extends Node {
       for (rowI = 0; rowI < tbl.length; rowI++) {
         w = Math.max(w, tbl[rowI][colI].bbox.width);
       }
-
-      maxW.push(w);
+      console.log(w)
+      if(w<60){
+        maxW.push(70);
+      }else{
+        maxW.push(w)
+      }
+      
     }
 
     return maxW;
@@ -104,7 +110,7 @@ export default class TableNode extends Node {
         h = Math.max(h, col.bbox.height);
       });
 
-      maxH.push(h);
+      maxH.push(h+10);
     });
 
     return maxH;

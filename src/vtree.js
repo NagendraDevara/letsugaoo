@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* global d3 */
 
 import Node from './node/node.js';
@@ -11,8 +12,10 @@ import ArrayLayout from './layout/array.js';
 import ObjectReader from './reader/object.js';
 
 import { visitAfter } from './util.js';
+import html2canvas from 'html2canvas';
 
-
+// rgb(124, 179, 66)
+//#b3d4eb
 const WIDTH = 960;
 const HEIGHT = 800;
 const MARGIN = 20;
@@ -22,14 +25,16 @@ const DEBUG_TREE_LAYOUT_HEIGHT = 100;
 
 const style = `
 .vtree-node text { font: 14px sans-serif; }
-.vtree-link { fill: none; stroke: #888; stroke-width: 2px; }
+.vtree-link { fill: none; stroke: #888; stroke-width: 1px; }
 .vtree-table { stroke-width: 2px; stroke: steelblue; }
 path.vtree-table { fill: white; }
-g.vtree-node rect { fill: white; stroke: black; stroke-width: 0.8px; }
-g.vtree-node rect.number-text { fill: #d8f0ed; }
-g.vtree-node rect.string-text { fill: #00b300; }
-g.vtree-node rect.boolean-text { fill: #ff944d; }
-g.vtree-node rect.null-text { fill: #888; }
+g.vtree-node rect { fill: white; stroke: black; stroke-width: 0px; }
+g.vtree-node rect.number-text { fill: #b3d8ec; }
+g.vtree-node rect.string-text { fill: #83d163; }
+g.vtree-node rect.boolean-text { fill: #b3d8ec; }
+g.vtree-node rect.null-text { fill: #0000; }
+.vtree-link  rect.null-text { fill: none; stroke: #0000; stroke-width: 2px; }
+
 g.vtree-node text { fill: #300c2a; }
 `;
 
@@ -115,7 +120,40 @@ class VTree {
 
     return this;
   }
+  // eslint-disable-next-line no-unused-vars
+  downloadSvg(){
+    html2canvas(document.body).then(function(canvas) {
+    // document.body.appendChild(canvas);
+    var link = document.createElement('a');
+    link.download = 'rapairEarth.png';
+    link.href = canvas.toDataURL()
+    link.click();
+});
+    // var svg = document.querySelector( "svg" );
 
+    // var svgElement = svg;
+    // let {width, height} = svgElement.getBBox(); 
+    // let clonedSvgElement = svgElement.cloneNode(true);
+    // let outerHTML = clonedSvgElement.outerHTML,
+    // blob = new Blob([outerHTML],{type:'image/svg+xml;charset=utf-8'});
+    // let URL = window.URL || window.webkitURL || window;
+    // let blobURL = URL.createObjectURL(blob);  
+    // let image = new Image();
+    // image.onload = () => {
+      
+    //    let canvas = document.createElement('canvas');
+       
+    //    canvas.widht = width;
+       
+    //    canvas.height = height;
+    //    let context = canvas.getContext('2d');
+    //    // draw image in canvas starting left-0 , top - 0  
+    //    context.drawImage(image, 0, 0, width, height );
+    //   //  downloadImage(canvas); need to implement
+    // };
+    // image.src = blobURL;
+    // console.log(image);
+  }
   createSvgString() {
     var svg = this.d3.svg.node();
     var serializer = new XMLSerializer();
@@ -130,7 +168,9 @@ class VTree {
     }
 
     source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
-
+// eslint-disable-next-line no-console
+console.log(svg)
+    this.downloadSvg(svg)
     return source;
   }
 
@@ -193,7 +233,8 @@ class VTree {
     if (this._debug) {
       visitAfter(this.root, (node) => {
         // eslint-disable-next-line no-console
-        console.log(node)
+        // eslint-disable-next-line no-unused-vars
+        let vb =node
         // this._debugDrawNodeInfo(node);
       });
     }

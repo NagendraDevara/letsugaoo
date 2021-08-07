@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* global d3 */
 
 import ArrayNode from '../node/array.js';
@@ -11,7 +12,7 @@ const diagonal = d3.svg.diagonal();
 
 export default class TreeLayout {
   constructor(options={}) {
-    this.height = options.height || HEIGHT;
+      this.height = options.height || HEIGHT;
   }
 
   layout(node) {
@@ -28,28 +29,35 @@ export default class TreeLayout {
 
 
 function layout(node, height) {
-  if (node.children.length === 0) {
-    return;
+  if(node.data){
+    if (node.children.length === 0) {
+      return;
+    }
+  
+    var x = Math.round(node.width / 2) - Math.round(node.childrenWidth / 2);
+    const y = node.height + height;
+  
+    node.children.forEach((child) => {
+      child.x = x + Math.round(child.totalWidth / 2) - Math.round(child.width / 2);
+      child.y = y;
+  
+      child.g
+        .transition()
+        .duration(DURATION)
+        .attr('transform', `translate(${child.x},${child.y})`);
+  
+      x += child.totalWidth + MARGIN;
+    });
   }
 
-  var x = Math.round(node.width / 2) - Math.round(node.childrenWidth / 2);
-  const y = node.height + height;
-
-  node.children.forEach((child) => {
-    child.x = x + Math.round(child.totalWidth / 2) - Math.round(child.width / 2);
-    child.y = y;
-
-    child.g
-      .transition()
-      .duration(DURATION)
-      .attr('transform', `translate(${child.x},${child.y})`);
-
-    x += child.totalWidth + MARGIN;
-  });
 }
 
 
 function renderLinks(node) {
+  console.log('***********')
+  console.log(node.data)
+if(node.data){
+  console.log(node)
   const src = {
     x: node.linkX,
     y: node.linkY
@@ -82,6 +90,8 @@ function renderLinks(node) {
         return diagonal({ source: src, target: dst });
       });
   });
+}
+
 }
 
 

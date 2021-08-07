@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Node from './node.js';
 import { appendRectText } from './util.js';
 
@@ -12,12 +13,12 @@ export default class StringNode extends Node {
   _render(g) {
     // eslint-disable-next-line no-console
     // console.log(g)
-    const bbox = appendRectText(g, 0, 0, this.data, this.textPad);
+    // const bbox = appendRectText(g, 0, 0,0,0);
 
-    this.width = bbox.width;
-    this.height = bbox.height;
+    // this.width = bbox.width;
+    // this.height = bbox.height;
 
-    this.linkX = Math.round(this.width / 2);
-    this.linkY = Math.round(this.height / 2);
+    // this.linkX = Math.round(this.width / 2);
+    // this.linkY = Math.round(this.height / 2);
   }
 }
