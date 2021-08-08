@@ -60,7 +60,7 @@ addDataToId(treeData, owner, immediateChilds[0].children).then(e => {
 
   });
   event.preventDefault();
-});
+}); 
     var max_fields = 100;
     var wrapper = $(".container1");
     var add_button = $(".add_form_field");
