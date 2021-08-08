@@ -54,8 +54,6 @@ function layout(node, height) {
 
 
 function renderLinks(node) {
-  console.log('***********')
-  console.log(node.data)
 if(node.data){
   console.log(node)
   const src = {

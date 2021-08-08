@@ -10,6 +10,7 @@ let treeData = [];
 window.onload = function () {
     var btn = document.querySelector('button');
     var svg = document.querySelector('svg');
+    let newInputBtn = document.getElementById('addNewOne');
     fetch('https://blue-dashing-firefly.glitch.me/tree_data')
     .then(response => response.json())
     .then(data => {
@@ -17,32 +18,9 @@ window.onload = function () {
         treeData = data
         updateTree();
     });
-
-    btn.addEventListener('click', function () {
-        svg = document.querySelector('svg');
-        console.log(svg);
-        let { width, height } = svg.getBBox();
-        let clonedSvgElement = svg.cloneNode(true);
-
-        let outerHTML = clonedSvgElement.outerHTML,
-            blob = new Blob([outerHTML], { type: 'image/svg+xml;charset=utf-8' });
-        let URL = window.URL || window.webkitURL || window;
-        let blobURL = URL.createObjectURL(blob);
-        let image = new Image();
-        image.onload = () => {
-
-            let canvas = document.createElement('canvas');
-
-            canvas.widht = width;
-
-            canvas.height = height;
-            let context = canvas.getContext('2d');
-            // draw image in canvas starting left-0 , top - 0  
-            context.drawImage(image, 0, 0, width, height);
-            //  downloadImage(canvas); need to implement
-        };
-        image.src = blobURL;
-        console.log(image.src);
+    
+    document.getElementById('generateSvg').addEventListener('click', () => {
+        console.log(vt.downloadSvg())
     });
 
     let successFulCompletion = false;
@@ -58,29 +36,76 @@ window.onload = function () {
         }
       })
     }
-    document.getElementById('btnSubmit').addEventListener('click', () => {
-      successFulCompletion = false;
-      let owner = document.getElementById('fname').value;
-      let child1 = document.getElementById('lname').value;
-      let child2 = document.getElementById('rname').value;
-      let child3 = document.getElementById('dname').value;
 
-      let pushData = [{ id: owner, children: [{ id: child1, children: [] }, { id: child2, children: [] }, { id: child3, children: [] }] }]
+  $(document).ready(function() {
+    $( "#target" ).submit(function( event ) {
+      var datastring = $("#target").serialize();
+      let owner = document.getElementById('challenge1').value;
+immediateChilds = [{id:owner,children:[]}];
+      $(".initiative").each(function(eachData,data){
+    console.log(data.value);
+    immediateChilds[0].children.push({ id:data.value,children: []})
+})
 
-      console.log(pushData[0].children)
-      addDataToId(treeData, owner, pushData[0].children).then(e => {
-        console.log(e)
-        console.log(successFulCompletion);
-        if (successFulCompletion == false) {
-          treeData.push(pushData[0])
-        }
-        // console.log(data);
+console.log(immediateChilds)
+addDataToId(treeData, owner, immediateChilds[0].children).then(e => {
+    // console.log(e)
+    console.log(successFulCompletion);
+    if (successFulCompletion == false) {
+      treeData.push(immediateChilds[0])
+    }
+    // console.log(data);
 
-        postTreeData()
+    postTreeData()
 
-      });
+  });
+  event.preventDefault();
+});
+    var max_fields = 100;
+    var wrapper = $(".container1");
+    var add_button = $(".add_form_field");
 
+    var x = 1;
+    $(add_button).click(function(e) {
+        e.preventDefault();
+        // if (x < max_fields) {
+            x++;
+            $(wrapper).append(`<div><input type="text" class="initiative" placeholder="contender" id=challenge${x} name="mytext[]"/><a href="#" class="delete">Delete</a></div>`); //add input box
+        // } else {
+        //     alert('You Reached the limits')
+        // }
     });
+
+    $(wrapper).on("click", ".delete", function(e) {
+        e.preventDefault();
+        $(this).parent('div').remove();
+        x--;
+    })
+});
+
+    // document.getElementById('btnSubmit').addEventListener('click', () => {
+    //   successFulCompletion = false;
+    //   let owner = document.getElementById('fname').value;
+    //   let child1 = document.getElementById('lname').value;
+    //   let child2 = document.getElementById('rname').value;
+    //   let child3 = document.getElementById('dname').value;
+
+    //   let pushData = [{ id: owner, children: [{ id: child1, children: [] }, { id: child2, children: [] }, { id: child3, children: [] }] }]
+
+    //   console.log(pushData[0].children)
+    //   addDataToId(treeData, owner, pushData[0].children).then(e => {
+    //     console.log(e)
+    //     console.log(successFulCompletion);
+    //     if (successFulCompletion == false) {
+    //       treeData.push(pushData[0])
+    //     }
+    //     // console.log(data);
+
+    //     postTreeData()
+
+    //   });
+
+    // });
     function postTreeData() {
         // http://127.0.0.1:3000
         // node-kwxhxr--3000.local.webcontainer.io
@@ -103,10 +128,6 @@ window.onload = function () {
     }
 
 
-    document.getElementById('generateSvg').addEventListener('click', () => {
-        createSvgString();
-
-    });
  
 
     var container = document.getElementById("container");
@@ -133,12 +154,12 @@ window.onload = function () {
             .update();
     }
 
-    function createSvgString() {
-        // let v = vt.createSvgString();
-        // console.log(vt);
+    // function createSvgString() {
+    //     // let v = vt.createSvgString();
+    //     // console.log(vt);
 
-        // document.getElementById("svg-text").value = vt.createSvgString();
-    }
+    //     // document.getElementById("svg-text").value = vt.createSvgString();
+    // }
 
     // document.getElementById("go-button").onclick = updateTree;
     // document.getElementById("svg-button").onclick = createSvgString;

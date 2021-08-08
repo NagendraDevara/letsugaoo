@@ -18,7 +18,7 @@ svg.vtree {
   padding-top: 60px;
 }
 
-.sidenav a {
+.sidenav .closebtn {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
@@ -27,9 +27,9 @@ svg.vtree {
   transition: 0.3s;
 }
 
-.sidenav a:hover {
+/* .sidenav a:hover {
   color: #f1f1f1;
-}
+} */
 
 .sidenav .closebtn {
   position: absolute;
@@ -51,3 +51,61 @@ svg.vtree {
 #earthForm{
   margin: 37px
 }
+
+.button {
+  background-color: #4ca0af; /* Green */
+  border: none;
+  color: white;
+  padding: 3px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#target{
+margin-top: 35px;
+}
+.form-container{
+  display: flex;
+}
+
+.delete{
+  color: blue;
+  margin-left: 6px;;
+}
+
+.initiative{
+  margin-top: 10px;
+}
+
+.frm-submit-btn{
+  background-color: #8F00FF;
+  color: #ffffff;
+  display:inline-block;
+  padding:0.35em 1.2em;
+  border:0.1em solid #FFFFFF;
+  margin:10px 0.3em 0.3em 0;
+border-radius:0.12em;
+box-sizing: border-box;
+text-decoration:none;
+font-family:'Roboto',sans-serif;
+text-align: center;
+}
+
+.button1{
+  display:inline-block;
+  padding:0.35em 1.2em;
+  border:0.1em solid #FFFFFF;
+  margin:0 0.3em 0.3em 0;
+border-radius:0.12em;
+box-sizing: border-box;
+text-decoration:none;
+font-family:'Roboto',sans-serif;
+font-weight:300;
+color:#FFFFFF;
+background-color: #8F00FF;
+text-align:center;
+transition: all 0.2s;
+  }
+  

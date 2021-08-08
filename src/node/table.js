@@ -88,7 +88,6 @@ export default class TableNode extends Node {
       for (rowI = 0; rowI < tbl.length; rowI++) {
         w = Math.max(w, tbl[rowI][colI].bbox.width);
       }
-      console.log(w)
       if(w<60){
         maxW.push(70);
       }else{

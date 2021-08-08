@@ -4,13 +4,14 @@
 <meta charset="utf-8">
 
 <title>repair earth initiative</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="css/vtree.css" type="text/css"/>
 <script type="text/javascript" src="https://unpkg.com/canvg@3.0.4/lib/umd.js"></script>
 
 <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script src="dist/vtree.js"></script>
-<script src="./repairEarth.js"></script>
+<script defer src="dist/vtree.js"></script>
+<script defer src="./repairEarth.js"></script>
 
 <!-- How to use debug mode.
   1. open browser's developer tools.
@@ -27,50 +28,81 @@
  
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-
-    <form id="earthForm">
-      <label for="fname">Challenge Initiator</label><br>
-      <input type="text" id="fname" name="fname" ><br>
-      <label for="lname">Challenge Receiver</label><br>
-      <input type="text" id="lname" name="lname" ><br><br>
-      <input type="text" id="rname" name="rname" ><br><br>
-      <input type="text" id="dname" name="dname" ><br><br>
-      <input type="button" id="btnSubmit"   value="Submit">
-    
-    
+    <form id="target">
+    <div class="container1">
      
-    <pre id="link"></pre>
-    <input type="button" id="generateSvg" value="Generate Svg">
 
-    </form> 
-    <button>svg to png</button>
+      
+      <div>
+      
+          <div classs="form-container">
+            <label>Challenger Name</label>
+            <input style="margin-bottom: 10px;" type="text" id="challenge1" placeholder="Challenger" name="mytext[]">
+            <button class="add_form_field button1">Add Contender &nbsp; 
+              <span style="font-size:16px; font-weight:bold;">+ </span>
+            </button>
+<hr>
+<label>Contender Names</label>
+
+          </div>
+        
+
+     
+
+        </div>
 
   </div>
+  <input type="submit" value="Submit Form" class="frm-submit-btn ">
+</form>
+  </div>
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+  <button  id="generateSvg" type="button" class="button" >⬇</button>
+
   <div class="container" id="main">
 
-    <!-- <h1>Online JSON to Tree Diagram Converter</h1> -->
-
-    <!-- <p style="text-align: right;"><a href="https://github.com/ivan111/vtree">github</a></p> -->
-
-    <!-- <div style="margin-top: 1em;">
-      <label for="from-text">JSON</label><br>
-      <textarea id="from-text" rows="6" cols="80">[{ "array": [ 1, 2, [3, 4], 5 ], "boolean": true, "null": null, "number": 123, "object": { "a": "b", "c": "d", "e": "f" }, "string": "Hello World" }, { "|": "|", "  ": { "ʕ": "" }, " ": ["◕", [ { "hello! ": "<ﾆフ" } ], "◕"], "_": { "": "ʔ" } }]</textarea>
-    </div>
-
-    <div style="margin-top: 1em;">
-      <input id="go-button" type="button" value="Visualize">
-    </div> -->
 
     <div id="msg" style="color: red;"></div>
 
     <div id="container"></div>
 
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
     
 
 
   </div>
   <canvas id="canvas"></canvas>
 </body>
+<!-- <script>
+  $(document).ready(function() {
+    $( "#target" ).submit(function( event ) {
+      var datastring = $("#target").serialize();
 
+      $(".initiative").each(function(eachData,data){
+    console.log(eachData);
+    console.log(data.value);
+})
+      
+  event.preventDefault();
+});
+    var max_fields = 100;
+    var wrapper = $(".container1");
+    var add_button = $(".add_form_field");
+
+    var x = 1;
+    $(add_button).click(function(e) {
+        e.preventDefault();
+        // if (x < max_fields) {
+            x++;
+            $(wrapper).append(`<div><input type="text" class="initiative" id=challenge${x} name="mytext[]"/><a href="#" class="delete">Delete</a></div>`); //add input box
+        // } else {
+        //     alert('You Reached the limits')
+        // }
+    });
+
+    $(wrapper).on("click", ".delete", function(e) {
+        e.preventDefault();
+        $(this).parent('div').remove();
+        x--;
+    })
+});
+</script> -->
 </html>

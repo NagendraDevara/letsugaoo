@@ -16,8 +16,8 @@ import html2canvas from 'html2canvas';
 
 // rgb(124, 179, 66)
 //#b3d4eb
-const WIDTH = 960;
-const HEIGHT = 800;
+const WIDTH = 1500;
+const HEIGHT = 1200;
 const MARGIN = 20;
 
 const DEFAULT_TREE_LAYOUT_HEIGHT = 50;
@@ -29,13 +29,14 @@ const style = `
 .vtree-table { stroke-width: 2px; stroke: steelblue; }
 path.vtree-table { fill: white; }
 g.vtree-node rect { fill: white; stroke: black; stroke-width: 0px; }
-g.vtree-node rect.number-text { fill: #b3d8ec; }
+g.vtree-node rect.number-text { fill: #fffff; }
 g.vtree-node rect.string-text { fill: #83d163; }
 g.vtree-node rect.boolean-text { fill: #b3d8ec; }
 g.vtree-node rect.null-text { fill: #0000; }
-.vtree-link  rect.null-text { fill: none; stroke: #0000; stroke-width: 2px; }
+.vtree-link  rect.number-text { fill: none; stroke: #0000; stroke-width: 2px; }
+g.vtree-node rect.number-text text{ fill: #fffff; }
 
-g.vtree-node text { fill: #300c2a; }
+g.vtree-node text { fill: #fffff; }
 `;
 
 
@@ -121,6 +122,7 @@ class VTree {
     return this;
   }
   // eslint-disable-next-line no-unused-vars
+  
   downloadSvg(){
     html2canvas(document.body).then(function(canvas) {
     // document.body.appendChild(canvas);

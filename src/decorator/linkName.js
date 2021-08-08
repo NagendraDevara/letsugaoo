@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const pad = 4;
 
 export default class LinkNameDecorator {
@@ -34,7 +35,7 @@ export default class LinkNameDecorator {
       .attr('x', Math.round(newW / 2))
       .attr('y', textH)
       .attr('text-anchor', 'middle');
-
+console.log(dx, dy, dw, dh);
     return { dx, dy, dw, dh };
   }
 }
